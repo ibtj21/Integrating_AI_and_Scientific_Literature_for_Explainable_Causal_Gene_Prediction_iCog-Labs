@@ -1,0 +1,2 @@
+# Integrating_AI_and_Scientific_Literature_for_Explainable_Causal_Gene_Prediction_iCog-Labs
+This project aims to improve the accuracy and explainability of causal gene prediction by integrating AI-driven literature insights and uncertainty estimation. The system uses open-source biomedical language models to suggest potential causal genes based on scientific publications, while also providing confidence scores for each prediction.
