@@ -11,7 +11,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 def main():
     # Step 1: Retrieve PubMed abstracts
     search_query = "Alzheimer phenotype AND (ABCA7 OR BIN1 OR CD2AP OR CD33 OR CLU OR CR1 OR EPHA1 OR MS4A OR PICALM OR SORL1 OR TREM2)"
-    retriever = PubMedRetriever(os.getenv("API_KEY"))  # uses default API key if none in environment
+    retriever = PubMedRetriever(os.getenv("API_KEY"))  
     df = retriever.retrieve(search_query, max_results=20)
 
     if df.empty:

@@ -119,20 +119,3 @@ class PubMedRetriever:
         print(f"✅ Retrieved {len(df)} abstracts and loaded into memory.")
         return df
 
-if __name__ == "__main__":
-    retriever = PubMedRetriever()  # will use your exported API key automatically
-
-    # Try a phenotype search
-    test_term = "Alzheimer phenotype AND (ABCA7 OR BIN1 OR CD2AP OR CD33 OR CLU OR CR1 OR EPHA1 OR MS4A OR PICALM OR SORL1 OR TREM2)"
-  # <-- you can change this, e.g., "autism phenotype", "diabetic phenotype"
-    print(f"\n🧬 Testing retrieval for phenotype term: '{test_term}'\n")
-
-    # Run the retrieval pipeline
-    df = retriever.retrieve(search_term=test_term, max_results=20)
-
-    # Display results
-    if not df.empty:
-        print("\n✅ Retrieval successful! Here's a sample:\n")
-        print(df.to_string(index=False))  # Show first 3 abstracts nicely formatted
-    else:
-        print("⚠️ No abstracts were retrieved. Try a broader search term.")
