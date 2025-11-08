@@ -1,0 +1,18 @@
+# Core
+torch>=2.1.0
+transformers>=4.40.0
+sentence-transformers>=2.2.2
+faiss-cpu>=1.7.4
+pandas>=2.0.3
+requests>=2.31.0
+
+# LangChain components
+langchain>=0.1.0
+langchain-huggingface>=0.0.2
+langchain-community>=0.0.1
+
+# Utilities
+numpy>=1.26.0
+
+# Optional (if you want progress bars)
+tqdm>=4.66.0
