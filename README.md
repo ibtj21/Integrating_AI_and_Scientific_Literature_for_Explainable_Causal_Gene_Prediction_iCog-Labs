@@ -32,7 +32,7 @@ The pipeline identifies potential causal genes for complex phenotypes (e.g., Alz
 
 ## 🗂️ Folder Structure
 
-```
+
 
 project_root/
 │
@@ -46,7 +46,6 @@ project_root/
 ├── requirements.txt            # Python dependencies
 └── README.md                   # Project documentation
 
-````
 
 ---
 
