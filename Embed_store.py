@@ -87,3 +87,38 @@ class GeneEmbedder:
             self.vector_store.save_local(self.faiss_index_path)
 
         print("✅ Index saved successfully.")
+
+
+if __name__ == "__main__":
+    
+    from SimilaritySearch import SimilaritySearcher
+
+    # ---------------------------
+    # Step 0: Load the FAISS index created from your 20 PubMed abstracts
+    # ---------------------------
+    faiss_index_path = "alzheimer_pubmed_faiss_index"
+    searcher = SimilaritySearcher(faiss_index_path=faiss_index_path)
+    searcher.load_index()
+
+    # ---------------------------
+    # Step 1: Prepare your query
+    # ---------------------------
+    genes = ["ABCA7","BIN1","CD2AP","CD33","CLU","CR1","EPHA1","MS4A","PICALM","SORL1","TREM2"]
+    gene_query = " OR ".join(genes)
+    test_phenotype = "Alzheimer phenotype"
+    query = f"{test_phenotype} AND ({gene_query})"
+
+    # ---------------------------
+    # Step 2: Search FAISS and rank by cosine similarity
+    # ---------------------------
+    top_k = 5  # top N abstracts to retrieve
+    results = searcher.vector_store.similarity_search(query, k=top_k)  # LangChain FAISS uses cosine similarity by default
+
+    # ---------------------------
+    # Step 3: Display results with similarity ranking
+    # ---------------------------
+    print(f"\n🔍 Top {top_k} abstracts for query: '{query}' (ranked by cosine similarity)\n")
+    for rank, doc in enumerate(results, 1):
+        print(f"{rank}. PMID: {doc.metadata.get('PMID', 'N/A')}")
+        print(f"   Title: {doc.metadata.get('Title', 'No title')}")
+        print(f"   Abstract preview: {doc.page_content[:300]}...\n")

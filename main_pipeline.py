@@ -1,13 +1,17 @@
+# -*- coding: utf-8 -*-
+import os
+import sys
 from PubMedRetriever import PubMedRetriever
 from Embed_store import GeneEmbedder
 from SimilaritySearch import SimilaritySearcher
-from Prediction import CausalGenePredictor
+from Prediction import BioGPTGeneRanker
+
+sys.stdout.reconfigure(encoding='utf-8')
 
 def main():
-    search_query = "Obesity AND (MC4R OR BDNF OR PCSK1 OR POMC OR SH2B1 OR LEPR OR NTRK2)"
-
     # Step 1: Retrieve PubMed abstracts
-    retriever = PubMedRetriever(api_key="6a41a7035aeb228d716b5db84d688726d908")
+    search_query = "Alzheimer phenotype AND (ABCA7 OR BIN1 OR CD2AP OR CD33 OR CLU OR CR1 OR EPHA1 OR MS4A OR PICALM OR SORL1 OR TREM2)"
+    retriever = PubMedRetriever(os.getenv("API_KEY"))  # uses default API key if none in environment
     df = retriever.retrieve(search_query, max_results=20)
 
     if df.empty:
@@ -26,14 +30,17 @@ def main():
 
     # Step 3: Similarity Search
     searcher = SimilaritySearcher(faiss_index_path="faiss_meetta_index")
-    top_docs = searcher.search("Predict the causal gene involved in Obesity for these loci", top_k=5)
+    top_docs = searcher.search("Predict the causal gene involved in Alzheimer for these loci", top_k=5)
 
     # Step 4: Predict causal gene using BioGPT
-    predictor = CausalGenePredictor(model_name="microsoft/biogpt")
-    candidate_genes = ["MC4R", "BDNF", "PCSK1", "POMC", "SH2B1", "LEPR", "NTRK2"]
-    prediction = predictor.predict("Obesity", candidate_genes, top_docs)
+    candidate_genes = ["ABCA7", "BIN1", "CD2AP", "CD33", "CLU", "CR1", "EPHA1", "MS4A", "PICALM", "SORL1", "TREM2"]
+    predictor = BioGPTGeneRanker(model_name="microsoft/biogpt", mc_samples=5)
+    prediction = predictor.predict(top_docs, "Alzheimer", candidate_genes)
 
-    print("🎉 Final Causal Gene Prediction:", prediction)
+    print("🎉 Final Causal Gene Prediction:")
+    print("Predicted gene:", prediction["predicted_gene"])
+    print("Confidence score:", prediction["confidence_score"])
+    print("\nExplanation:\n", prediction["explanation"])
 
 if __name__ == "__main__":
     main()

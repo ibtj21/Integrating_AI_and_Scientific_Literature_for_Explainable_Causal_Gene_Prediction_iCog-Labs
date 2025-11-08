@@ -4,6 +4,7 @@ import time
 import requests
 from xml.etree import ElementTree
 import pandas as pd
+import os
 
 sys.stdout.reconfigure(encoding='utf-8')
 
@@ -15,10 +16,10 @@ class PubMedRetriever:
     """
 
     def __init__(self, api_key=None):
-        self.api_key = api_key or "6a41a7035aeb228d716b5db84d688726d908"
+        self.api_key = os.getenv("API_KEY")
         self.base_url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
         self.headers = {
-            "User-Agent": "HannaGenePredictor/1.0 (contact: your_email@example.com)"
+            "User-Agent": "HannaGenePredictor/1.0 (contact: 21ibtj@gmail.com)"
         }
 
     # ---------------------------
@@ -117,3 +118,21 @@ class PubMedRetriever:
         df = pd.DataFrame(articles)
         print(f"✅ Retrieved {len(df)} abstracts and loaded into memory.")
         return df
+
+if __name__ == "__main__":
+    retriever = PubMedRetriever()  # will use your exported API key automatically
+
+    # Try a phenotype search
+    test_term = "Alzheimer phenotype AND (ABCA7 OR BIN1 OR CD2AP OR CD33 OR CLU OR CR1 OR EPHA1 OR MS4A OR PICALM OR SORL1 OR TREM2)"
+  # <-- you can change this, e.g., "autism phenotype", "diabetic phenotype"
+    print(f"\n🧬 Testing retrieval for phenotype term: '{test_term}'\n")
+
+    # Run the retrieval pipeline
+    df = retriever.retrieve(search_term=test_term, max_results=20)
+
+    # Display results
+    if not df.empty:
+        print("\n✅ Retrieval successful! Here's a sample:\n")
+        print(df.to_string(index=False))  # Show first 3 abstracts nicely formatted
+    else:
+        print("⚠️ No abstracts were retrieved. Try a broader search term.")
