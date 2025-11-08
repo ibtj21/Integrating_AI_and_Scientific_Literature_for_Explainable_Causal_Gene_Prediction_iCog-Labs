@@ -5,14 +5,12 @@ A lightweight AI pipeline that integrates literature mining, embeddings, and unc
 ---
 
 ## 📘 Table of Contents
-- [Overview](#overview)
 - [Folder Structure](#folder-structure)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Example Output](#example-output)
 - [Methodology](#methodology)
 - [Uncertainty Interpretation](#uncertainty-interpretation)
-- [Contributors](#contributors)
 - [Acknowledgments](#acknowledgments)
 
 ---
