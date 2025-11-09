@@ -67,7 +67,7 @@ Predicted gene: CD33
 Confidence score: 0.57
 
 Explanation:
-ACCORDING TO THE RETRIEVED DOCUMENTS, **CD33** is linked to Alzheimer pathology through lipid droplet regulation in microglia.
+ACCORDING TO THE RETRIEVED DOCUMENTS, **CD33** is linked to Alzheimer pathology through lipid droplet regulation in microglia...
 
 Method note: This prediction used 5 Monte Carlo dropout passes to estimate model uncertainty.
 ```
