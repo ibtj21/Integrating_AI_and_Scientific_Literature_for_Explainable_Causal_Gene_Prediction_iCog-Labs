@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
-from typing import List, Dict
+from typing import List, Dict #gives type hints (List, Dict) to clarify function return types.
 from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
 
@@ -36,7 +36,7 @@ class SimilaritySearcher:
         if self.vector_store is None:
             self.load_index()
 
-        results = self.vector_store.similarity_search(query, k=top_k)
+        results = self.vector_store.similarity_search(query, k=top_k) #FAISS.similarity_search() sees the raw string query.It internally does:query_vector = self.embeddings.embed_query(query)
         top_docs = []
         for doc in results:
             top_docs.append({

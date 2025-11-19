@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 biogpt_gene_ranker.py
-Extended version with richer evidence-based explanations (Option 1).
+Extended version with richer evidence-based explanations.
 """
 
 import re, math, torch, numpy as np
@@ -46,7 +46,7 @@ class BioGPTGeneRanker:
         return "\n".join(parts)
 
     # ---------- Candidate scoring ----------
-    def score_candidate_given_prompt(self, prompt: str, candidate: str) -> float:
+    def score_candidate_given_prompt(self, prompt: str, candidate: str) -> float: #How well does candidate complete the prompt?
         combined = prompt + " " + candidate
         enc_combined = self.tokenizer(combined, return_tensors="pt")
         enc_prompt = self.tokenizer(prompt, return_tensors="pt")
@@ -54,7 +54,7 @@ class BioGPTGeneRanker:
         attention_mask = enc_combined["attention_mask"].to(self.device)
         prompt_len = enc_prompt["input_ids"].shape[1]
         labels = input_ids.clone()
-        labels[0, :prompt_len] = -100
+        labels[0, :prompt_len] = -100 #
         with torch.no_grad():
             outputs = self.model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
             loss = outputs.loss.item()
@@ -111,7 +111,7 @@ class BioGPTGeneRanker:
         print("🔎 Running Monte Carlo Dropout scoring...")
         mean_scores, std_scores = self.mc_dropout_scores(prompt, candidate_genes, T=T)
         exp = np.exp(mean_scores - np.max(mean_scores))
-        probs = exp / exp.sum()
+        probs = exp / exp.sum() #Softmax to probabilities/normalize to change the number to be between 0 and 1 and sum to 1
         top_idx = int(np.argmax(probs))
         predicted_gene = candidate_genes[top_idx]
         confidence, uncertainty = float(probs[top_idx]), float(std_scores[top_idx])

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import sys
 import time
-import requests
-from xml.etree import ElementTree
+import requests #HTTP library used to talk to NCBI E-utilities (PubMed).
+from xml.etree import ElementTree # XML parsing for PubMed responses
 import pandas as pd
 import os
 
@@ -19,15 +19,15 @@ class PubMedRetriever:
         self.api_key = os.getenv("API_KEY")
         self.base_url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
         self.headers = {
-            "User-Agent": "HannaGenePredictor/1.0 (contact: 21ibtj@gmail.com)"
+            "User-Agent": "HannaGenePredictor/1.0 (contact: 21ibtj@gmail.com)"  #small pieces of extra information that describe who or what is making the request and who to contact incase of issues
         }
 
     # ---------------------------
-    # Step 1: Search PubMed
+    # Step 1: Search PubMed 
     # ---------------------------
     def search_pubmed(self, term, max_results=20):
         """Search PubMed and return a list of PMIDs."""
-        search_url = f"{self.base_url}esearch.fcgi"
+        search_url = f"{self.base_url}esearch.fcgi"  # "esearch.fcgi"...Specific API for searching PubMed 
         params = {
             "db": "pubmed",
             "term": term,
