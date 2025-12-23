@@ -117,5 +117,15 @@ class PubMedRetriever:
             return pd.DataFrame()
         df = pd.DataFrame(articles)
         print(f"✅ Retrieved {len(df)} abstracts and loaded into memory.")
+        # ---------------------------
+        # Save to CSV for later use
+        # ---------------------------
+        csv_path = "pubmed_results.csv"
+        df.to_csv(csv_path, index=False, encoding="utf-8")
+        print(f"💾 Saved retrieved abstracts to '{csv_path}'")
+
         return df
 
+     
+
+        
