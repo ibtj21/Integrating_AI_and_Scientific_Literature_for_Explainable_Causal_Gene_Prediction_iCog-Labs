@@ -1,20 +1,16 @@
-
 ```markdown
 # 🧬 Gene Causal AI: Explainable Gene Prioritization Pipeline
 
 A lightweight AI pipeline that integrates literature mining, embeddings, and uncertainty-aware causal gene prediction using open biomedical models such as BioGPT and sentence-transformers.
-
 ---
 
 ## 📘 Table of Contents
-- [Overview](#overview)
 - [Folder Structure](#folder-structure)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Example Output](#example-output)
 - [Methodology](#methodology)
 - [Uncertainty Interpretation](#uncertainty-interpretation)
-- [Contributors](#contributors)
 - [Acknowledgments](#acknowledgments)
 
 ---
@@ -28,33 +24,13 @@ This project improves the **accuracy and explainability of causal gene predictio
 
 The pipeline identifies potential causal genes for complex phenotypes (e.g., Alzheimer’s) based on literature evidence and model confidence.
 
----
 
-## 🗂️ Folder Structure
-
-
-
-project_root/
-│
-├── gene_causal_ai/             # Core modules
-│   ├── PubMedRetriever.py      # Retrieves abstracts via PubMed API
-│   ├── Embed_store.py          # Creates and stores embeddings
-│   ├── SimilaritySearch.py     # Retrieves top relevant literature
-│   ├── Prediction.py           # BioGPT-based gene ranking + uncertainty
-│
-├── main.py                     # Main entry point combining all modules
-├── requirements.txt            # Python dependencies
-└── README.md                   # Project documentation
-
-
----
 
 ## ⚙️ Installation
 
 1. **Clone this repository:**
    ```bash
-   git clone https://github.com/yourusername/gene_causal_ai.git
-   cd gene_causal_ai
+   git clone https://github.com/ibtj21/Integrating_AI_and_Scientific_Literature_for_Explainable_Causal_Gene_Prediction_iCog-Labs
 ````
 
 2. **Install dependencies:**
@@ -63,7 +39,7 @@ project_root/
    pip install -r requirements.txt
    ```
 
-3. **Set your PubMed API key (optional but recommended):**
+3. **Set your PubMed API key :**
 
    ```bash
    export API_KEY=your_pubmed_api_key
@@ -87,11 +63,11 @@ You can modify the search query in `main.py` to analyze a different phenotype or
 
 ```
 🎉 Final Causal Gene Prediction:
-Predicted gene: PICALM
-Confidence score: 0.48
+Predicted gene: CD33
+Confidence score: 0.57
 
 Explanation:
-ACCORDING TO THE RETRIEVED DOCUMENTS, **PICALM** is linked to Alzheimer pathology through lipid droplet regulation in microglia.
+ACCORDING TO THE RETRIEVED DOCUMENTS, **CD33** is linked to Alzheimer pathology through lipid droplet regulation in microglia...
 
 Method note: This prediction used 5 Monte Carlo dropout passes to estimate model uncertainty.
 ```
@@ -135,19 +111,11 @@ Example:
 
 ---
 
-## 👩‍🔬 Contributors
-
-* **Hanna** — Project lead, pipeline integration, literature retrieval, explainability
-* **OpenAI GPT-5** — Technical support for AI model integration and uncertainty design
-
----
-
 ## 🙏 Acknowledgments
 
 * **BioGPT** by Microsoft Research
 * **PubMed API** for biomedical literature access
 * **Sentence-transformers** and **FAISS** for semantic search
-* Support and feedback from instructors and peers in the DSA 1080A group project
 
 ---
 
